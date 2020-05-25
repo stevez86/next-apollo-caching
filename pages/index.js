@@ -13,19 +13,40 @@ const ViewerQuery = gql`
   }
 `
 
+const FooUserQuery = gql`
+    query FooUserQuery {
+        fooUser {
+            id
+            name
+            status
+            foo {
+                id
+                name
+            }
+        }
+    }
+`
+
 const Index = () => {
   const {
     data: { viewer },
   } = useQuery(ViewerQuery)
 
+  const {
+    data: { fooUser },
+  } = useQuery(FooUserQuery)
+
   if (viewer) {
     return (
       <div>
-        You're signed in as {viewer.name} and you're {viewer.status} goto{' '}
-        <Link href="/about">
-          <a>static</a>
-        </Link>{' '}
-        page.
+        {viewer &&       <div>
+          You're signed in as {viewer.name} and you're {viewer.status} goto{' '}
+          <Link href="/about">
+            <a>static</a>
+          </Link>{' '}
+          page.
+        </div>}
+        <pre>{JSON.stringify(fooUser)}</pre>
       </div>
     )
   }
