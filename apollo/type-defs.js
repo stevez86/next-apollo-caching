@@ -25,7 +25,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    viewer: User
+    viewer: User @cacheControl(maxAge: 1)
     fooUser: User @cacheControl(maxAge: 100)
   }
 `
